@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.database.mysql.mapper.MysqlStructureMapper">
+
+
+    <select id="listTable" resultType="com.database.mysql.dto.mysql.structure.TableInfoDTO">
+        select
+            TABLE_NAME,
+            TABLE_COMMENT
+
+
+        from information_schema.`TABLES`
+
+        <where>
+            table_type = 'BASE TABLE'
+
+            and TABLE_SCHEMA  = #{tableSchema}
+
+        </where>
+    </select>
+
+    <select id="listColumn" resultType="com.database.mysql.dto.mysql.structure.ColumnsInfoDTO">
+
+
+        select cl.TABLE_NAME,
+            cl.COLUMN_NAME,
+            cl.COLUMN_COMMENT,
+            cl.COLUMN_TYPE,
+            ifnull(cl.COLUMN_DEFAULT, 'NULL')   as COLUMN_DEFAULT,
+            cl.IS_NULLABLE,
+            if(COLUMN_KEY = 'PRI', 'YES', 'NO') as is_key,
+            cl.COLUMN_KEY,
+            cl.TABLE_SCHEMA,
+            t.TABLE_COMMENT
+        from information_schema.COLUMNS cl
+        left join information_schema.`TABLES` t on cl.TABLE_NAME = t.TABLE_NAME
+        <where>
+            cl.TABLE_SCHEMA = #{tableSchema}
+            and t.table_type = 'BASE TABLE'
+
+
+        </where>
+
+
+    </select>
+</mapper>

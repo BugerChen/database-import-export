@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.ColumnsDao">
+  <resultMap id="BaseResultMap" type="generate.Columns">
+    <result column="TABLE_CATALOG" jdbcType="VARCHAR" property="tableCatalog" />
+    <result column="TABLE_SCHEMA" jdbcType="VARCHAR" property="tableSchema" />
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="ORDINAL_POSITION" jdbcType="BIGINT" property="ordinalPosition" />
+    <result column="COLUMN_DEFAULT" jdbcType="VARCHAR" property="columnDefault" />
+    <result column="IS_NULLABLE" jdbcType="VARCHAR" property="isNullable" />
+    <result column="DATA_TYPE" jdbcType="VARCHAR" property="dataType" />
+    <result column="CHARACTER_MAXIMUM_LENGTH" jdbcType="BIGINT" property="characterMaximumLength" />
+    <result column="CHARACTER_OCTET_LENGTH" jdbcType="BIGINT" property="characterOctetLength" />
+    <result column="NUMERIC_PRECISION" jdbcType="BIGINT" property="numericPrecision" />
+    <result column="NUMERIC_SCALE" jdbcType="BIGINT" property="numericScale" />
+    <result column="DATETIME_PRECISION" jdbcType="BIGINT" property="datetimePrecision" />
+    <result column="CHARACTER_SET_NAME" jdbcType="VARCHAR" property="characterSetName" />
+    <result column="COLLATION_NAME" jdbcType="VARCHAR" property="collationName" />
+    <result column="COLUMN_TYPE" jdbcType="VARCHAR" property="columnType" />
+    <result column="COLUMN_KEY" jdbcType="VARCHAR" property="columnKey" />
+    <result column="EXTRA" jdbcType="VARCHAR" property="extra" />
+    <result column="PRIVILEGES" jdbcType="VARCHAR" property="privileges" />
+    <result column="COLUMN_COMMENT" jdbcType="VARCHAR" property="columnComment" />
+    <result column="GENERATION_EXPRESSION" jdbcType="VARCHAR" property="generationExpression" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TABLE_CATALOG, TABLE_SCHEMA, `TABLE_NAME`, `COLUMN_NAME`, ORDINAL_POSITION, COLUMN_DEFAULT, 
+    IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, 
+    NUMERIC_SCALE, DATETIME_PRECISION, `CHARACTER_SET_NAME`, `COLLATION_NAME`, COLUMN_TYPE, 
+    COLUMN_KEY, EXTRA, `PRIVILEGES`, COLUMN_COMMENT, GENERATION_EXPRESSION
+  </sql>
+  <select id="selectByExample" parameterType="generate.ColumnsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="generate.ColumnsExample">
+    delete from COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="generate.Columns">
+    insert into COLUMNS (TABLE_CATALOG, TABLE_SCHEMA, `TABLE_NAME`, 
+      `COLUMN_NAME`, ORDINAL_POSITION, COLUMN_DEFAULT, 
+      IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, 
+      CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE, 
+      DATETIME_PRECISION, `CHARACTER_SET_NAME`, `COLLATION_NAME`, 
+      COLUMN_TYPE, COLUMN_KEY, EXTRA, 
+      `PRIVILEGES`, COLUMN_COMMENT, GENERATION_EXPRESSION
+      )
+    values (#{tableCatalog,jdbcType=VARCHAR}, #{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+      #{columnName,jdbcType=VARCHAR}, #{ordinalPosition,jdbcType=BIGINT}, #{columnDefault,jdbcType=VARCHAR}, 
+      #{isNullable,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, #{characterMaximumLength,jdbcType=BIGINT}, 
+      #{characterOctetLength,jdbcType=BIGINT}, #{numericPrecision,jdbcType=BIGINT}, #{numericScale,jdbcType=BIGINT}, 
+      #{datetimePrecision,jdbcType=BIGINT}, #{characterSetName,jdbcType=VARCHAR}, #{collationName,jdbcType=VARCHAR}, 
+      #{columnType,jdbcType=VARCHAR}, #{columnKey,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
+      #{privileges,jdbcType=VARCHAR}, #{columnComment,jdbcType=VARCHAR}, #{generationExpression,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="generate.Columns">
+    insert into COLUMNS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tableCatalog != null">
+        TABLE_CATALOG,
+      </if>
+      <if test="tableSchema != null">
+        TABLE_SCHEMA,
+      </if>
+      <if test="tableName != null">
+        `TABLE_NAME`,
+      </if>
+      <if test="columnName != null">
+        `COLUMN_NAME`,
+      </if>
+      <if test="ordinalPosition != null">
+        ORDINAL_POSITION,
+      </if>
+      <if test="columnDefault != null">
+        COLUMN_DEFAULT,
+      </if>
+      <if test="isNullable != null">
+        IS_NULLABLE,
+      </if>
+      <if test="dataType != null">
+        DATA_TYPE,
+      </if>
+      <if test="characterMaximumLength != null">
+        CHARACTER_MAXIMUM_LENGTH,
+      </if>
+      <if test="characterOctetLength != null">
+        CHARACTER_OCTET_LENGTH,
+      </if>
+      <if test="numericPrecision != null">
+        NUMERIC_PRECISION,
+      </if>
+      <if test="numericScale != null">
+        NUMERIC_SCALE,
+      </if>
+      <if test="datetimePrecision != null">
+        DATETIME_PRECISION,
+      </if>
+      <if test="characterSetName != null">
+        `CHARACTER_SET_NAME`,
+      </if>
+      <if test="collationName != null">
+        `COLLATION_NAME`,
+      </if>
+      <if test="columnType != null">
+        COLUMN_TYPE,
+      </if>
+      <if test="columnKey != null">
+        COLUMN_KEY,
+      </if>
+      <if test="extra != null">
+        EXTRA,
+      </if>
+      <if test="privileges != null">
+        `PRIVILEGES`,
+      </if>
+      <if test="columnComment != null">
+        COLUMN_COMMENT,
+      </if>
+      <if test="generationExpression != null">
+        GENERATION_EXPRESSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tableCatalog != null">
+        #{tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="tableSchema != null">
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinalPosition != null">
+        #{ordinalPosition,jdbcType=BIGINT},
+      </if>
+      <if test="columnDefault != null">
+        #{columnDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="isNullable != null">
+        #{isNullable,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null">
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="characterMaximumLength != null">
+        #{characterMaximumLength,jdbcType=BIGINT},
+      </if>
+      <if test="characterOctetLength != null">
+        #{characterOctetLength,jdbcType=BIGINT},
+      </if>
+      <if test="numericPrecision != null">
+        #{numericPrecision,jdbcType=BIGINT},
+      </if>
+      <if test="numericScale != null">
+        #{numericScale,jdbcType=BIGINT},
+      </if>
+      <if test="datetimePrecision != null">
+        #{datetimePrecision,jdbcType=BIGINT},
+      </if>
+      <if test="characterSetName != null">
+        #{characterSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="collationName != null">
+        #{collationName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnType != null">
+        #{columnType,jdbcType=VARCHAR},
+      </if>
+      <if test="columnKey != null">
+        #{columnKey,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="privileges != null">
+        #{privileges,jdbcType=VARCHAR},
+      </if>
+      <if test="columnComment != null">
+        #{columnComment,jdbcType=VARCHAR},
+      </if>
+      <if test="generationExpression != null">
+        #{generationExpression,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="generate.ColumnsExample" resultType="java.lang.Long">
+    select count(*) from COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update COLUMNS
+    <set>
+      <if test="record.tableCatalog != null">
+        TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableSchema != null">
+        TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null">
+        `TABLE_NAME` = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnName != null">
+        `COLUMN_NAME` = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordinalPosition != null">
+        ORDINAL_POSITION = #{record.ordinalPosition,jdbcType=BIGINT},
+      </if>
+      <if test="record.columnDefault != null">
+        COLUMN_DEFAULT = #{record.columnDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNullable != null">
+        IS_NULLABLE = #{record.isNullable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null">
+        DATA_TYPE = #{record.dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characterMaximumLength != null">
+        CHARACTER_MAXIMUM_LENGTH = #{record.characterMaximumLength,jdbcType=BIGINT},
+      </if>
+      <if test="record.characterOctetLength != null">
+        CHARACTER_OCTET_LENGTH = #{record.characterOctetLength,jdbcType=BIGINT},
+      </if>
+      <if test="record.numericPrecision != null">
+        NUMERIC_PRECISION = #{record.numericPrecision,jdbcType=BIGINT},
+      </if>
+      <if test="record.numericScale != null">
+        NUMERIC_SCALE = #{record.numericScale,jdbcType=BIGINT},
+      </if>
+      <if test="record.datetimePrecision != null">
+        DATETIME_PRECISION = #{record.datetimePrecision,jdbcType=BIGINT},
+      </if>
+      <if test="record.characterSetName != null">
+        `CHARACTER_SET_NAME` = #{record.characterSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collationName != null">
+        `COLLATION_NAME` = #{record.collationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnType != null">
+        COLUMN_TYPE = #{record.columnType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnKey != null">
+        COLUMN_KEY = #{record.columnKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extra != null">
+        EXTRA = #{record.extra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privileges != null">
+        `PRIVILEGES` = #{record.privileges,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnComment != null">
+        COLUMN_COMMENT = #{record.columnComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.generationExpression != null">
+        GENERATION_EXPRESSION = #{record.generationExpression,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update COLUMNS
+    set TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      `TABLE_NAME` = #{record.tableName,jdbcType=VARCHAR},
+      `COLUMN_NAME` = #{record.columnName,jdbcType=VARCHAR},
+      ORDINAL_POSITION = #{record.ordinalPosition,jdbcType=BIGINT},
+      COLUMN_DEFAULT = #{record.columnDefault,jdbcType=VARCHAR},
+      IS_NULLABLE = #{record.isNullable,jdbcType=VARCHAR},
+      DATA_TYPE = #{record.dataType,jdbcType=VARCHAR},
+      CHARACTER_MAXIMUM_LENGTH = #{record.characterMaximumLength,jdbcType=BIGINT},
+      CHARACTER_OCTET_LENGTH = #{record.characterOctetLength,jdbcType=BIGINT},
+      NUMERIC_PRECISION = #{record.numericPrecision,jdbcType=BIGINT},
+      NUMERIC_SCALE = #{record.numericScale,jdbcType=BIGINT},
+      DATETIME_PRECISION = #{record.datetimePrecision,jdbcType=BIGINT},
+      `CHARACTER_SET_NAME` = #{record.characterSetName,jdbcType=VARCHAR},
+      `COLLATION_NAME` = #{record.collationName,jdbcType=VARCHAR},
+      COLUMN_TYPE = #{record.columnType,jdbcType=VARCHAR},
+      COLUMN_KEY = #{record.columnKey,jdbcType=VARCHAR},
+      EXTRA = #{record.extra,jdbcType=VARCHAR},
+      `PRIVILEGES` = #{record.privileges,jdbcType=VARCHAR},
+      COLUMN_COMMENT = #{record.columnComment,jdbcType=VARCHAR},
+      GENERATION_EXPRESSION = #{record.generationExpression,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
